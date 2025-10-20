@@ -1,6 +1,5 @@
 package com.example.congressionalappchallenge
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
@@ -14,23 +13,20 @@ import android.hardware.camera2.CameraCaptureSession
 import android.hardware.camera2.CameraDevice
 import android.hardware.camera2.CameraManager
 import android.os.Bundle
-import android.os.FileUtils
 import android.os.HandlerThread
 import android.view.Surface
 import android.view.TextureView
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresPermission
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.congressionalappchallenge.ml.SsdMobilenetV11Metadata1
 import org.tensorflow.lite.support.common.FileUtil
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeOp
-import java.util.logging.Handler
+import com.example.congressionalappchallenge.ml.CongressionalAppModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var cameraManager: CameraManager
     lateinit var textureView: TextureView
 
-    lateinit var model: SsdMobilenetV11Metadata1
+    lateinit var model:CongressionalAppModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -63,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         val handlerThread = HandlerThread("videoThread")
         handlerThread.start()
         handler = android.os.Handler(handlerThread.looper)
-        model = SsdMobilenetV11Metadata1.newInstance(this)
+        model = CongressionalAppModel.newInstance(this)
 
 
         imageView = findViewById(R.id.imageView)
